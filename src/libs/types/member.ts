@@ -14,7 +14,7 @@ export interface Member {
   memberImage?: string;
   memberAddress?: string;
   memberDesc?: string;
-  memberPoints: number;
+  //   memberPoints: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -48,6 +48,8 @@ export interface MemberUpdateInput {
   memberAddress?: string;
   memberDesc?: string;
 }
+
+/** FILE yuklashsa qo'shaman */
 
 // export interface AdminRequest extends Request {
 //   member: Member;
