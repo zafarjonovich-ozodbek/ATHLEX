@@ -19,14 +19,14 @@ class MemberService {
   }
 
   public async processSignup(input: MemberInput): Promise<Member> {
-    const exist = await this.memberModel // "exist" - agar 1ta "RES" bolsa va yana boshqa "RES" kiritsak, 1-"RES" haqida malumot qaytaradi
+    const exist = await this.memberModel
       .findOne({ memberType: MemberType.ADMIN })
       .exec();
     if (exist)
-      throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG); // agar "exist(2ta RES)" bolsa shu "error" ishga tushadi
+      throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
-    const salt = await bcrypt.genSalt(); // "user" 'signup'bolganda uning "password" hash bolib qaytishi uchun
-    input.memberPassword = await bcrypt.hash(input.memberPassword, salt); // va qaysi 'input' malumot nima orqali (solt) 'hash' bolishini kirityapmiz
+    const salt = await bcrypt.genSalt();
+    input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
     try {
       const result = await this.memberModel.create(input);
@@ -36,6 +36,30 @@ class MemberService {
     } catch (err) {
       throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
     }
+  }
+
+  public async processLogin(input: LoginInput): Promise<Member> {
+    console.log(3);
+    const member = await this.memberModel
+      .findOne(
+        { memberNick: input.memberNick },
+        { memberNick: 1, memberPassword: 1 },
+      )
+      .exec();
+    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+
+    const isMatch = await bcrypt.compare(
+      input.memberPassword,
+      member.memberPassword,
+    );
+
+    if (!isMatch) {
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+    }
+
+    const result = await this.memberModel.findById(member._id).exec();
+    //@ts-ignore
+    return result as Member;
   }
 }
 

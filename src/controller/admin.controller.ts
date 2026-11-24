@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { T } from "../libs/types/common";
-import { AdminRequest, MemberInput } from "../libs/types/member";
+import { AdminRequest, LoginInput, MemberInput } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { MemberType } from "../libs/enums/member.enum";
 import MemberService from "../models/Member.Service";
@@ -64,4 +64,38 @@ adminController.processSignup = async (req: AdminRequest, res: Response) => {
     );
   }
 };
+
+adminController.processLogin = async (req: AdminRequest, res: Response) => {
+  try {
+    console.log("process login");
+    const input: LoginInput = req.body;
+
+    const result = await memberService.processLogin(input); // Service Modeldan "Controller"ga qaytaryapmiz
+
+    req.session.member = result;
+    req.session.save(function () {
+      res.redirect("/admin/product/all");
+    });
+  } catch (err) {
+    console.log("Error, processLogin:", err);
+    const message =
+      err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;
+    res.send(
+      `<script> alert("${message}"); window.location.replace('/admin/login') </script>`,
+    );
+  }
+};
+
+adminController.logout = async (req: AdminRequest, res: Response) => {
+  try {
+    console.log("logout logout");
+    req.session.destroy(function () {
+      res.redirect("/admin");
+    });
+  } catch (err) {
+    console.log("Error, logout:", err);
+    res.redirect("/admin");
+  }
+};
+
 export default adminController;

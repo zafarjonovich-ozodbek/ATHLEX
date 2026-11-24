@@ -16,4 +16,6 @@ routerAdmin
   .get("/login", adminController.getLogin)
   .post("/login", adminController.processLogin);
 
+routerAdmin.get("/logout", adminController.logout);
+
 export default routerAdmin;
