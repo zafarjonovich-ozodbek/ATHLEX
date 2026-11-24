@@ -1,16 +1,16 @@
 import cors from "cors";
 import express from "express";
 import path from "path";
-// import router from "./router";
-// import routerAdmin from "./router-admin";
+import routerAdmin from "./router-admin";
 import morgan from "morgan";
-// import { MORGAN_FORMAT } from "./libs/config";
+import { MORGAN_FORMAT } from "./libs/config";
 import cookieParser from "cookie-parser"; // "req.cookie" larni oqaolish uchun(TOKEN)
 
 // TCP2 (with session)
 import session from "express-session";
 import ConnectMongoDB from "connect-mongodb-session";
-// import { T } from "./libs/types/common";
+import { T } from "./libs/types/common";
+import router from "./router";
 
 const MongoDBStore = ConnectMongoDB(session);
 const store = new MongoDBStore({
@@ -31,7 +31,7 @@ app.use(
   }),
 );
 app.use(cookieParser());
-// app.use(morgan(MORGAN_FORMAT));
+app.use(morgan(MORGAN_FORMAT));
 
 /* 2-SESSION (TAMG'A) */
 
@@ -59,7 +59,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 /* 4-ROUTERS  */
-// app.use("/admin", routerAdmin); // admin uchun (BSSR: EJS)
-// app.use("/", router); // userlar uchun (SPA: REACT)
+app.use("/admin", routerAdmin); // admin uchun (BSSR: EJS)
+app.use("/", router); // userlar uchun (SPA: REACT)
 
 export default app;

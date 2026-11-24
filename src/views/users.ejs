@@ -1,0 +1,93 @@
+<%- include('../partials/sidebar') %>
+
+<main class="main-content">
+
+    <%- include('../partials/header', { pageTitle: 'Members' }) %>
+
+    <section class="page-content">
+
+        <div class="page-heading">
+            <div>
+                <h2>Gym Members</h2>
+                <p>Manage your gym members and their information.</p>
+            </div>
+
+            <button class="primary-button">
+                <i class="fa-solid fa-plus"></i>
+                Add Member
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total Members</span>
+                <h2>1,248</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>Active Members</span>
+                <h2>986</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>Expired Members</span>
+                <h2>262</h2>
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <input type="search" placeholder="Search members...">
+
+            <select>
+                <option value="">All Status</option>
+                <option>Active</option>
+                <option>Expired</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Member</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Membership</th>
+                        <th>Expiration</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>john@example.com</td>
+                        <td>010-1234-5678</td>
+                        <td>Monthly</td>
+                        <td>2026-12-20</td>
+                        <td><span class="status active">Active</span></td>
+                        <td>
+                            <button class="icon-button"><i class="fa-solid fa-eye"></i></button>
+                            <button class="icon-button"><i class="fa-solid fa-pen"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>David Lee</td>
+                        <td>david@example.com</td>
+                        <td>010-2345-6789</td>
+                        <td>3 Months</td>
+                        <td>2026-10-15</td>
+                        <td><span class="status expired">Expired</span></td>
+                        <td>
+                            <button class="icon-button"><i class="fa-solid fa-eye"></i></button>
+                            <button class="icon-button"><i class="fa-solid fa-pen"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+</main>

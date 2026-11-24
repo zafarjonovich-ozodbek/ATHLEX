@@ -1,0 +1,101 @@
+<%- include('../partials/sidebar') %>
+
+<main class="main-content">
+
+    <%- include('../partials/header', { pageTitle: 'Products' }) %>
+
+    <section class="page-content">
+
+        <div class="page-heading">
+            <div>
+                <h2>Products</h2>
+                <p>Manage your fitness products and inventory.</p>
+            </div>
+
+            <button class="primary-button">
+                <i class="fa-solid fa-plus"></i>
+                Add Product
+            </button>
+        </div>
+
+        <div class="filter-bar">
+            <input type="search" placeholder="Search products...">
+
+            <select name="category">
+                <option value="">All Categories</option>
+                <option>Clothing</option>
+                <option>Supplements</option>
+                <option>Accessories</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img src="/images/tshirt.jpg" alt="T-shirt">
+                                <span>ATHLEX Training T-Shirt</span>
+                            </div>
+                        </td>
+                        <td>Clothing</td>
+                        <td>$35.00</td>
+                        <td>45</td>
+                        <td><span class="status active">Available</span></td>
+                        <td>
+                            <button class="icon-button"><i class="fa-solid fa-pen"></i></button>
+                            <button class="icon-button"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img src="/images/shaker.jpg" alt="Shaker">
+                                <span>ATHLEX Shaker</span>
+                            </div>
+                        </td>
+                        <td>Accessories</td>
+                        <td>$15.00</td>
+                        <td>28</td>
+                        <td><span class="status active">Available</span></td>
+                        <td>
+                            <button class="icon-button"><i class="fa-solid fa-pen"></i></button>
+                            <button class="icon-button"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img src="/images/protein.jpg" alt="Protein">
+                                <span>Whey Protein</span>
+                            </div>
+                        </td>
+                        <td>Supplements</td>
+                        <td>$65.00</td>
+                        <td>0</td>
+                        <td><span class="status expired">Out of Stock</span></td>
+                        <td>
+                            <button class="icon-button"><i class="fa-solid fa-pen"></i></button>
+                            <button class="icon-button"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+</main>

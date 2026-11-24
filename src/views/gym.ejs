@@ -1,0 +1,109 @@
+<%- include('../partials/sidebar') %>
+
+<main class="main-content">
+
+    <%- include('../partials/header', { pageTitle: 'Gym Management' }) %>
+
+    <section class="page-content">
+
+        <div class="page-heading">
+            <div>
+                <h2>Gym Management</h2>
+                <p>Manage memberships and gym subscriptions.</p>
+            </div>
+
+            <button class="primary-button">
+                <i class="fa-solid fa-plus"></i>
+                Add Plan
+            </button>
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <span>Total Plans</span>
+                <h2>3</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>Active Memberships</span>
+                <h2>986</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>Expired Memberships</span>
+                <h2>262</h2>
+            </div>
+
+        </div>
+
+        <div class="section-heading">
+            <h3>Membership Plans</h3>
+            <p>Manage available gym subscription plans.</p>
+        </div>
+
+        <div class="membership-grid">
+
+            <div class="membership-card">
+                <span class="plan-label">BASIC PLAN</span>
+                <h2>Monthly</h2>
+                <h3>$30 <small>/ month</small></h3>
+
+                <ul>
+                    <li>Gym Access</li>
+                    <li>Modern Equipment</li>
+                    <li>Locker Access</li>
+                </ul>
+
+                <div class="plan-footer">
+                    <span>125 Members</span>
+                    <button class="icon-button">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="membership-card featured">
+                <span class="plan-label">POPULAR PLAN</span>
+                <h2>3 Months</h2>
+                <h3>$80 <small>/ 3 months</small></h3>
+
+                <ul>
+                    <li>Full Gym Access</li>
+                    <li>Modern Equipment</li>
+                    <li>Locker Access</li>
+                    <li>Personal Training Session</li>
+                </ul>
+
+                <div class="plan-footer">
+                    <span>340 Members</span>
+                    <button class="icon-button">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="membership-card">
+                <span class="plan-label">PREMIUM PLAN</span>
+                <h2>6 Months</h2>
+                <h3>$145 <small>/ 6 months</small></h3>
+
+                <ul>
+                    <li>Full Gym Access</li>
+                    <li>Modern Equipment</li>
+                    <li>Locker Access</li>
+                    <li>Personal Training</li>
+                </ul>
+
+                <div class="plan-footer">
+                    <span>521 Members</span>
+                    <button class="icon-button">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>
