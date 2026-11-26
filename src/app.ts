@@ -9,7 +9,6 @@ import cookieParser from "cookie-parser"; // "req.cookie" larni oqaolish uchun(T
 // TCP2 (with session)
 import session from "express-session";
 import ConnectMongoDB from "connect-mongodb-session";
-import { T } from "./libs/types/common";
 import router from "./router";
 
 const MongoDBStore = ConnectMongoDB(session);
