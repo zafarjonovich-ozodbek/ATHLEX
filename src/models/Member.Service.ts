@@ -12,7 +12,7 @@ import MemberModel from "../schema/Member.model";
 import * as bcrypt from "bcryptjs";
 
 class MemberService {
-  private readonly memberModel; // 'SCHEMA"ni 'call' qilib variablega tengladik
+  private readonly memberModel;
 
   constructor() {
     this.memberModel = MemberModel;
@@ -27,6 +27,20 @@ class MemberService {
     if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
 
     return result as Member;
+  }
+
+  public async signup(input: MemberInput): Promise<Member> {
+    const salt = await bcrypt.genSalt();
+    input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
+
+    try {
+      const result = await this.memberModel.create(input);
+      result.memberPassword = "";
+      return result.toJSON() as Member;
+    } catch (err) {
+      console.error("Error, model:signup", err);
+      throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
+    }
   }
 
   /** BSSR - Admin */
