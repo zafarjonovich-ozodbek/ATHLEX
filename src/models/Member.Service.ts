@@ -18,6 +18,18 @@ class MemberService {
     this.memberModel = MemberModel;
   }
 
+  /** SPA - User */
+  public async getAdmin(): Promise<Member> {
+    const result = await this.memberModel
+      .findOne({ memberType: MemberType.ADMIN })
+      .exec();
+
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    return result as Member;
+  }
+
+  /** BSSR - Admin */
   public async processSignup(input: MemberInput): Promise<Member> {
     const exist = await this.memberModel
       .findOne({ memberType: MemberType.ADMIN })
