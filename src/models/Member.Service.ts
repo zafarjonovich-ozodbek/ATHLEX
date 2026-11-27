@@ -43,6 +43,36 @@ class MemberService {
     }
   }
 
+  public async login(input: LoginInput): Promise<Member> {
+    const member = await this.memberModel
+      .findOne(
+        {
+          memberNick: input.memberNick,
+          memberStatus: { $ne: MemberStatus.DELETE },
+        },
+        { memberNick: 1, memberPassword: 1, memberStatus: 1 }, // 'terminal'da "password"ni majburan chaqiryapmiz, "1"-bu 'database'dan olib berishi uchun
+      )
+      .exec();
+    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+    else if (member.memberStatus === MemberStatus.BLOCK) {
+      throw new Errors(HttpCode.FORBIDDEN, Message.BLOCKED_USER);
+    }
+
+    const isMatch = await bcrypt.compare(
+      input.memberPassword,
+      member.memberPassword,
+    );
+
+    if (!isMatch) {
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+    }
+
+    const result = await this.memberModel.findById(member._id).lean().exec(); // 'findById' - static method
+
+    //@ts-ignore
+    return result as Member;
+  }
+
   /** BSSR - Admin */
   public async processSignup(input: MemberInput): Promise<Member> {
     const exist = await this.memberModel

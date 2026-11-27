@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import Errors, { HttpCode } from "../libs/Errors";
 import { T } from "../libs/types/common";
 import MemberService from "../models/Member.Service";
-import { MemberInput } from "../libs/types/member";
+import { LoginInput, MemberInput } from "../libs/types/member";
 import { AUTH_TIMER } from "../libs/config";
 import AuthService from "../models/Auth.Service";
 
@@ -38,6 +38,26 @@ memberController.signup = async (req: Request, res: Response) => {
   } catch (err) {
     console.log("Error, signup:", err);
 
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standart.code).json(Errors.standart);
+  }
+};
+
+memberController.login = async (req: Request, res: Response) => {
+  try {
+    console.log("login");
+    const input: LoginInput = req.body,
+      result = await memberService.login(input),
+      token = await authService.createToken(result); //TOKEN AUTHENTICATION
+
+    // "Login"dan keginham "user browseriga TOKEN"ni yopishtirib qoyyapmiz!
+    res.cookie("accessToken", token, {
+      maxAge: AUTH_TIMER * 3600 * 1000,
+      httpOnly: false,
+    });
+    res.status(HttpCode.OK).json({ member: result, accessToken: token });
+  } catch (err) {
+    console.log("Error, login:", err);
     if (err instanceof Errors) res.status(err.code).json(err);
     else res.status(Errors.standart.code).json(Errors.standart);
   }
