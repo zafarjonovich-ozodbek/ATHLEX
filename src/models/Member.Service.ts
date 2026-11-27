@@ -39,7 +39,7 @@ class MemberService {
   }
 
   public async processLogin(input: LoginInput): Promise<Member> {
-    console.log(3);
+    console.log("processLogin");
     const member = await this.memberModel
       .findOne(
         { memberNick: input.memberNick },

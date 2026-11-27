@@ -46,10 +46,10 @@ adminController.processSignup = async (req: AdminRequest, res: Response) => {
     if (!file)
       throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
 
-    const newMember: MemberInput = req.body; // 'frontend'dan kirib kelayotkan malumotni "newMember"ga tenglab, uning 'memberType'sini kiritdik
+    const newMember: MemberInput = req.body;
     newMember.memberImage = file?.path;
-    newMember.memberType = MemberType.ADMIN; // bu 'singup' "RESTAURANT"ga tegishli ekanligini korsatdik
-    const result = await memberService.processSignup(newMember); // "Ser.model"ning 'method'ni chaqirdik
+    newMember.memberType = MemberType.ADMIN;
+    const result = await memberService.processSignup(newMember);
 
     req.session.member = result; // COOKIE[sid] & DB.sessions.+member
     req.session.save(function () {
@@ -70,7 +70,7 @@ adminController.processLogin = async (req: AdminRequest, res: Response) => {
     console.log("process login");
     const input: LoginInput = req.body;
 
-    const result = await memberService.processLogin(input); // Service Modeldan "Controller"ga qaytaryapmiz
+    const result = await memberService.processLogin(input);
 
     req.session.member = result;
     req.session.save(function () {
@@ -88,7 +88,7 @@ adminController.processLogin = async (req: AdminRequest, res: Response) => {
 
 adminController.logout = async (req: AdminRequest, res: Response) => {
   try {
-    console.log("logout logout");
+    console.log("logout");
     req.session.destroy(function () {
       res.redirect("/admin");
     });

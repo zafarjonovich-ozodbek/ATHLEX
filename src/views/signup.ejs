@@ -10,23 +10,23 @@
     <p>Register to manage Athlex Fitness Club.</p>
   </div>
 
-  <form action="/admin/signup" method="POST">
+  <form action="/admin/signup" method="POST" enctype="multipart/form-data">
     <div class="form-group">
-      <label>Full Name</label>
+      <label>Nickname</label>
       <input
         type="text"
-        name="name"
-        placeholder="Enter your full name"
+        name="memberNick"
+        placeholder="Choose a nickname"
         required
       />
     </div>
 
     <div class="form-group">
-      <label>Email Address</label>
+      <label>Phone</label>
       <input
-        type="email"
-        name="email"
-        placeholder="admin@example.com"
+        type="tel"
+        name="memberPhone"
+        placeholder="Enter your phone number"
         required
       />
     </div>
@@ -35,7 +35,7 @@
       <label>Password</label>
       <input
         type="password"
-        name="password"
+        name="memberPassword"
         placeholder="Create password"
         required
         minlength="8"
@@ -43,11 +43,11 @@
     </div>
 
     <div class="form-group">
-      <label>Confirm Password</label>
+      <label>Profile image</label>
       <input
-        type="password"
-        name="confirmPassword"
-        placeholder="Confirm password"
+        type="file"
+        name="memberImage"
+        accept="image/*"
         required
       />
     </div>
