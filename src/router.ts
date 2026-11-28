@@ -1,6 +1,7 @@
 import express from "express";
 import memberController from "./controller/member.controller";
 import uploader from "./libs/utils/uploader";
+import productController from "./controller/product.controller";
 const router = express.Router();
 
 /** MEMBER */
@@ -28,4 +29,14 @@ router.post(
   uploader("members").single("memberImage"),
   memberController.updateMember,
 );
+
+/** PRODUCT **/
+router
+  .get("/product/all", productController.getProducts)
+  .get(
+    "/product/:id",
+    memberController.retrievAuth,
+    productController.getProduct,
+  );
+
 export default router;
